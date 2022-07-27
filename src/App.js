@@ -13,10 +13,13 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import SelectCountry from "./SelectCountry";
 
 const ToggleContainer = styled(ToggleGroup.Root, {
   display: "inline-flex",
   backgroundColor: "transparent",
+  marginLeft: "20px",
+  borderRadius: 4,
 });
 
 const ToggleItem = styled(ToggleGroup.Item, {
@@ -24,6 +27,7 @@ const ToggleItem = styled(ToggleGroup.Item, {
   width: "100px",
   justifyContent: "center",
   alignItems: "center",
+  padding: "8px",
 
   "&:hover": {
     cursor: "pointer",
@@ -41,7 +45,7 @@ function App() {
   const [parsedTempData, setParsedTempData] = useState([]);
   const [parsedGdpData, setParsedGdpData] = useState([]);
   const [dataset, setDataset] = useState([]);
-
+  console.log(countryCode);
   // get temperature data
   useEffect(() => {
     getData({
@@ -80,8 +84,6 @@ function App() {
     }
   }, [parsedGdpData]);
 
-  console.log(dataset);
-
   return (
     <div className="App">
       <header className="App-header">
@@ -90,6 +92,10 @@ function App() {
 
       <main>
         <div className="toggle-btn-container">
+          <SelectCountry
+            currentCountry={countryCode}
+            setCountry={setCountryCode}
+          />
           <ToggleContainer
             type="single"
             value={meanMax}
@@ -126,7 +132,8 @@ function App() {
                 type="monotone"
                 dataKey="gdp"
                 stroke="#8884d8"
-                activeDot={{ r: 5 }}
+                activeDot={{ r: 3 }}
+                dot={false}
               />
               {/* <Line yAxisId="right" type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
             </LineChart>
