@@ -3,6 +3,16 @@ import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { useEffect, useState } from "react";
 import { styled } from "@stitches/react";
 import getData from "./getData";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 const ToggleContainer = styled(ToggleGroup.Root, {
   display: "inline-flex",
@@ -66,7 +76,7 @@ function App() {
         });
       });
 
-      setDataset(formatData.flat());
+      setDataset(formatData.flat().filter((item) => item.gdp !== ""));
     }
   }, [parsedGdpData]);
 
@@ -90,6 +100,37 @@ function App() {
             <ToggleItem value="mean">Mean</ToggleItem>
             <ToggleItem value="max">Max</ToggleItem>
           </ToggleContainer>
+        </div>
+
+        <div className="graph-container">
+          <ResponsiveContainer width="100%" height={500}>
+            <LineChart
+              width={500}
+              height={300}
+              data={dataset}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="quarter" tick={false} />
+              <YAxis yAxisId="left" type="number" tickCount={10} />
+              {/* <YAxis yAxisId="right" orientation="right" /> */}
+              <Tooltip />
+              <Legend />
+              <Line
+                yAxisId="left"
+                type="monotone"
+                dataKey="gdp"
+                stroke="#8884d8"
+                activeDot={{ r: 5 }}
+              />
+              {/* <Line yAxisId="right" type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
+            </LineChart>
+          </ResponsiveContainer>
         </div>
       </main>
     </div>
