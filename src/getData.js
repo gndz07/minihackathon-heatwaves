@@ -13,21 +13,21 @@ const getData = async ({ path, stateSetter }) => {
 };
 
 const getAverage = (arr) => {
-  return arr.reduce((a, b) => a + b, 0) / arr.length;
+  return arr.reduce((a, b) => Number(a) + Number(b), 0) / arr.length;
 };
 
 export const getQuarterlyValue = (data, quarter) => {
   if (quarter === "Q1") {
-    return getAverage([Number(data.Jan) + Number(data.Feb) + Number(data.Mar)]);
+    return getAverage([data.Jan, data.Feb, data.Mar]);
   }
   if (quarter === "Q2") {
-    return getAverage([Number(data.Apr) + Number(data.May) + Number(data.Jun)]);
+    return getAverage([data.Apr, data.May, data.Jun]);
   }
   if (quarter === "Q3") {
-    return getAverage([Number(data.Jul) + Number(data.Aug) + Number(data.Sep)]);
+    return getAverage([data.Jul, data.Aug, data.Sep]);
   }
   if (quarter === "Q4") {
-    return getAverage([Number(data.Oct) + Number(data.Nov) + Number(data.Dec)]);
+    return getAverage([data.Oct, data.Nov, data.Dec]);
   } else {
     return null;
   }
