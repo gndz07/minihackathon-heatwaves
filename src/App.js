@@ -18,7 +18,6 @@ import SelectCountry from "./SelectCountry";
 const ToggleContainer = styled(ToggleGroup.Root, {
   display: "inline-flex",
   backgroundColor: "transparent",
-  marginLeft: "20px",
   borderRadius: 4,
 });
 
@@ -97,24 +96,31 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Temperature and Productivity Relation</h1>
+        <h2>Quarterly data</h2>
       </header>
 
       <main>
-        <div className="toggle-btn-container">
-          <SelectCountry
-            currentCountry={countryCode}
-            setCountry={setCountryCode}
-          />
-          <ToggleContainer
-            type="single"
-            value={meanMax}
-            onValueChange={(value) => {
-              if (value) setMeanMax(value);
-            }}
-          >
-            <ToggleItem value="mean">Mean</ToggleItem>
-            <ToggleItem value="max">Max</ToggleItem>
-          </ToggleContainer>
+        <div className="selection-container">
+          <div>
+            <p className="selector-title">Select a country</p>
+            <SelectCountry
+              currentCountry={countryCode}
+              setCountry={setCountryCode}
+            />
+          </div>
+          <div>
+            <p className="selector-title">Temperature</p>
+            <ToggleContainer
+              type="single"
+              value={meanMax}
+              onValueChange={(value) => {
+                if (value) setMeanMax(value);
+              }}
+            >
+              <ToggleItem value="mean">Mean</ToggleItem>
+              <ToggleItem value="max">Max</ToggleItem>
+            </ToggleContainer>
+          </div>
         </div>
 
         <div className="graph-container">
