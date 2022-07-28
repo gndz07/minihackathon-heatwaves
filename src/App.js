@@ -13,7 +13,8 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import SelectCountry from "./SelectCountry";
+import SelectCountry from "./component/SelectCountry";
+import SelectQuarter from "./component/SelectQuarter";
 
 const ToggleContainer = styled(ToggleGroup.Root, {
   display: "inline-flex",
@@ -44,6 +45,8 @@ function App() {
   const [parsedTempData, setParsedTempData] = useState([]);
   const [parsedGdpData, setParsedGdpData] = useState([]);
   const [dataset, setDataset] = useState([]);
+  const [filteredDataset, setFilteredDataset] = useState([]);
+  const [quarterFilter, setQuarterFilter] = useState("all");
 
   // get temperature data
   useEffect(() => {
@@ -91,6 +94,18 @@ function App() {
     }
   }, [parsedGdpData, parsedTempData]);
 
+  useEffect(() => {
+    if (dataset) {
+      if (quarterFilter === "all") {
+        setFilteredDataset(dataset);
+      } else {
+        setFilteredDataset(
+          dataset.filter((item) => item.quarter.includes(quarterFilter))
+        );
+      }
+    }
+  }, [dataset, quarterFilter]);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -100,11 +115,18 @@ function App() {
 
       <main>
         <div className="selection-container">
-          <div style={{ position: "relative" }}>
+          <div>
             <p className="selector-title">Select a country</p>
             <SelectCountry
               currentCountry={countryCode}
               setCountry={setCountryCode}
+            />
+          </div>
+          <div>
+            <p className="selector-title">Select a quarter</p>
+            <SelectQuarter
+              currentQuarter={quarterFilter}
+              setQuarter={setQuarterFilter}
             />
           </div>
           <div>
@@ -127,7 +149,7 @@ function App() {
             <LineChart
               width={500}
               height={300}
-              data={dataset}
+              data={filteredDataset}
               margin={{
                 top: 5,
                 right: 30,
