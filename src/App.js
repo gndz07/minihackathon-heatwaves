@@ -141,7 +141,9 @@ function App() {
               <YAxis yAxisId="right" orientation="right" />
               <Tooltip
                 formatter={(value, name) =>
-                  name === "gdp" ? `${value}` : `${Number(value).toFixed(2)}°C`
+                  name === "GDP per person employed*"
+                    ? `${value}`
+                    : `${Number(value).toFixed(2)}°C`
                 }
               />
               <Legend />
