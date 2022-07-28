@@ -2,7 +2,7 @@ import "./App.css";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { useEffect, useState } from "react";
 import { styled } from "@stitches/react";
-import getData from "./getData";
+import getData, { getQuarterlyValue } from "./getData";
 import {
   LineChart,
   Line,
@@ -45,7 +45,7 @@ function App() {
   const [parsedTempData, setParsedTempData] = useState([]);
   const [parsedGdpData, setParsedGdpData] = useState([]);
   const [dataset, setDataset] = useState([]);
-  console.log(countryCode);
+
   // get temperature data
   useEffect(() => {
     getData({
@@ -71,18 +71,27 @@ function App() {
         const vals = Object.values(item);
         const keys = Object.keys(item);
 
-        const realValues = vals.slice(1);
-        return realValues.map((val, index) => {
+        const valuesOnly = vals.slice(1);
+        return valuesOnly.map((val, index) => {
+          const temp = parsedTempData.find((item) => item.year === vals[0]);
+
           return {
             quarter: keys[index + 1] + " - " + vals[0],
-            gdp: val,
+            gdp: Number(val).toFixed(2),
+            temperature: temp ? getQuarterlyValue(temp, keys[index + 1]) : null,
           };
         });
       });
 
-      setDataset(formatData.flat().filter((item) => item.gdp !== ""));
+      setDataset(
+        formatData
+          .flat()
+          .filter((item) => item.gdp !== "")
+          .filter((item) => item.temperature !== null)
+      );
     }
-  }, [parsedGdpData]);
+  }, [parsedGdpData, parsedTempData]);
+  console.log(dataset);
 
   return (
     <div className="App">
@@ -124,7 +133,7 @@ function App() {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="quarter" tick={false} />
               <YAxis yAxisId="left" type="number" tickCount={10} />
-              {/* <YAxis yAxisId="right" orientation="right" /> */}
+              <YAxis yAxisId="right" orientation="right" />
               <Tooltip />
               <Legend />
               <Line
@@ -135,7 +144,14 @@ function App() {
                 activeDot={{ r: 3 }}
                 dot={false}
               />
-              {/* <Line yAxisId="right" type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
+              <Line
+                yAxisId="right"
+                type="monotone"
+                dataKey="temperature"
+                stroke="#82ca9d"
+                activeDot={{ r: 3 }}
+                dot={false}
+              />
             </LineChart>
           </ResponsiveContainer>
         </div>
