@@ -41,7 +41,7 @@ const ToggleItem = styled(ToggleGroup.Item, {
 
 function App() {
   const [meanMax, setMeanMax] = useState("mean");
-  const [countryCode, setCountryCode] = useState("DEU");
+  const [countryCode, setCountryCode] = useState("AUS");
   const [parsedTempData, setParsedTempData] = useState([]);
   const [parsedGdpData, setParsedGdpData] = useState([]);
   const [dataset, setDataset] = useState([]);

@@ -15,7 +15,31 @@ import {
   ChevronUpIcon,
 } from "@radix-ui/react-icons";
 
-const countryList = ["DEU", "GRC", "HUN", "IRL", "ISR", "ITA"];
+const countryList = [
+  "AUS",
+  "BEL",
+  "CHE",
+  "DNK",
+  "ESP",
+  "FIN",
+  "FRA",
+  "DEU",
+  "GBR",
+  "GRC",
+  "HUN",
+  "IRL",
+  "ISR",
+  "ITA",
+  "JPN",
+  "KOR",
+  "LUX",
+  "NLD",
+  "NOR",
+  "NZL",
+  "PRT",
+  "SWE",
+  "TUR",
+];
 
 const SelectCountry = ({ currentCountry, setCountry }) => {
   return (
