@@ -90,7 +90,6 @@ function App() {
       );
     }
   }, [parsedGdpData, parsedTempData]);
-  console.log(dataset);
 
   return (
     <div className="App">
@@ -101,7 +100,7 @@ function App() {
 
       <main>
         <div className="selection-container">
-          <div>
+          <div style={{ position: "relative" }}>
             <p className="selector-title">Select a country</p>
             <SelectCountry
               currentCountry={countryCode}

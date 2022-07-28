@@ -6,7 +6,7 @@ import {
   ChevronUpIcon,
 } from "@radix-ui/react-icons";
 
-const countryList = ["DEU", "GRC", "HUN", "IRL", "ISL", "ISR", "ITA"];
+const countryList = ["DEU", "GRC", "HUN", "IRL", "ISR", "ITA"];
 
 const SelectTrigger = styled(SelectPrimitive.SelectTrigger, {
   all: "unset",
