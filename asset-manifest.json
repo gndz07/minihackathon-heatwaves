@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/minihackathon-heatwaves/static/css/main.cea04111.css",
+    "main.js": "/minihackathon-heatwaves/static/js/main.10c60dd0.js",
+    "static/js/787.27dcfefb.chunk.js": "/minihackathon-heatwaves/static/js/787.27dcfefb.chunk.js",
+    "index.html": "/minihackathon-heatwaves/index.html",
+    "main.cea04111.css.map": "/minihackathon-heatwaves/static/css/main.cea04111.css.map",
+    "main.10c60dd0.js.map": "/minihackathon-heatwaves/static/js/main.10c60dd0.js.map",
+    "787.27dcfefb.chunk.js.map": "/minihackathon-heatwaves/static/js/787.27dcfefb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cea04111.css",
+    "static/js/main.10c60dd0.js"
+  ]
+}
