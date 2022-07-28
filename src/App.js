@@ -140,9 +140,14 @@ function App() {
               <XAxis dataKey="quarter" tick={false} />
               <YAxis yAxisId="left" type="number" tickCount={10} />
               <YAxis yAxisId="right" orientation="right" />
-              <Tooltip />
+              <Tooltip
+                formatter={(value, name) =>
+                  name === "gdp" ? `${value}` : `${Number(value).toFixed(2)}°C`
+                }
+              />
               <Legend />
               <Line
+                name="GDP per person employed*"
                 yAxisId="left"
                 type="monotone"
                 dataKey="gdp"
@@ -151,6 +156,9 @@ function App() {
                 dot={false}
               />
               <Line
+                name={
+                  meanMax === "mean" ? "Average temperature" : "Max temperature"
+                }
                 yAxisId="right"
                 type="monotone"
                 dataKey="temperature"
@@ -160,6 +168,11 @@ function App() {
               />
             </LineChart>
           </ResponsiveContainer>
+          <p style={{ fontSize: "14px", color: "#8884d8", opacity: 0.75 }}>
+            * GDP per person employed is an index to represent labor
+            productivity — output per unit of labor input. Data taken from OECD
+            statistics with the year 2015 as reference.
+          </p>
         </div>
       </main>
     </div>
