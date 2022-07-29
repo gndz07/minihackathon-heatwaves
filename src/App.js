@@ -2,7 +2,7 @@ import "./App.css";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { useEffect, useState } from "react";
 import { styled } from "@stitches/react";
-import getData, { getQuarterlyValue } from "./getData";
+import getData, { getQuarterlyValue, getQuarterlyMax } from "./getData";
 import {
   LineChart,
   Line,
@@ -80,7 +80,11 @@ function App() {
           return {
             quarter: keys[index + 1] + " - " + vals[0],
             gdp: Number(val).toFixed(2),
-            temperature: temp ? getQuarterlyValue(temp, keys[index + 1]) : null,
+            temperature: temp
+              ? meanMax === "mean"
+                ? getQuarterlyValue(temp, keys[index + 1])
+                : getQuarterlyMax(temp, keys[index + 1])
+              : null,
           };
         });
       });
@@ -92,7 +96,7 @@ function App() {
           .filter((item) => item.temperature !== null)
       );
     }
-  }, [parsedGdpData, parsedTempData]);
+  }, [meanMax, parsedGdpData, parsedTempData]);
 
   useEffect(() => {
     if (dataset) {
